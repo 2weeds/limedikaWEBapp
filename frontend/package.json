@@ -19,6 +19,7 @@
     "@types/node": "^16.11.43",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "connect-timeout": "^1.9.0",
     "material-ui-dropzone": "^3.5.0",
     "notistack": "^2.0.5",
     "react": "^18.2.0",
