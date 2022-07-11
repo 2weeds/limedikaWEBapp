@@ -1,5 +1,4 @@
 import { Box, Button } from '@mui/material';
-import { display } from '@mui/system';
 import { DropzoneArea } from 'material-ui-dropzone'
 import React, { useEffect, useState } from 'react'
 
