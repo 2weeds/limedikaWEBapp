@@ -6,6 +6,7 @@ import ClientsWindow from '../ClientsWindow/ClientsWindow';
 import { Helmet } from 'react-helmet';
 import picture from '../../1.jpg'
 
+
 const appBar = {
     position: "static",
     display: "flex",
