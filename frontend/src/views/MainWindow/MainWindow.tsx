@@ -4,7 +4,7 @@ import ImportClientsWindow from '../ImportClientsWindow/ImportClientsWindow';
 import UpdatePostCodeWindow from '../UpdatePostCodeWindow/UpdatePostCodeWindow';
 import ClientsWindow from '../ClientsWindow/ClientsWindow';
 import { Helmet } from 'react-helmet';
-import picture from '../../1.jpg'
+import picture from '../../1.jpg';
 
 
 const appBar = {

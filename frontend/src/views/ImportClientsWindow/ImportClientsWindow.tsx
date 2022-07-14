@@ -1,6 +1,7 @@
-import { Box, Button } from '@mui/material';
-import { DropzoneArea } from 'material-ui-dropzone'
-import React, { useEffect, useState } from 'react'
+import { Alert, Box, Button, Snackbar } from '@mui/material';
+import axios from 'axios';
+import React, { useState } from 'react'
+import { setTimeout } from "timers/promises";
 
 const dropZoneArea = {
   display: "flex",
@@ -32,19 +33,52 @@ const importButton = {
   },
 }
 function ImportClientsWindow() {
-  const [files, setFiles] = useState<File[]>();
-  useEffect(() => {
-    console.log(files)
-  }, [files]
-  )
-  const handleOnClick = () => {
-    return
+
+  const [fileSelected, setFileSelected] = useState<Blob|File|undefined>(undefined);
+  const [successAlertShowState, setSuccessAlertShowState] = useState<boolean>(false);
+  const [errorAlertShowState, setErrorAlertShowState] = useState<boolean>(false);
+  const saveFileSelected= (e:any) => {
+    //in case you wan to print the file selected
+    //console.log(e.target.files[0]);
+    try {
+      setFileSelected(e.target.files[0]);
+    }
+    catch (error:any){
+      console.log(error)
+    }
+    
+  };
+
+  const importFile= async (e:any) => {
+    const formData = new FormData();
+    formData.append("file", fileSelected as Blob);
+    try {
+      await axios.post("http://localhost:5000/api/file", formData);
+      setSuccessAlertShowState(true);
+      
+    } catch (ex) {
+      setErrorAlertShowState(true);
+      console.log(ex);
+    }
+  };
+  const handleClose =()=>{
+    setSuccessAlertShowState(false);
+    setErrorAlertShowState(false);
   }
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box sx={dropZoneArea}>
-        <DropzoneArea acceptedFiles={['.json']} onChange={(files) => setFiles(files)} getDropRejectMessage={() => 'Galimas tik json formatas!'}></DropzoneArea>
-        <Button sx={importButton} onClick={() => handleOnClick}>Importuoti</Button>
+        <input type="file" accept='.json' onChange={saveFileSelected} />
+        <Button sx={importButton} onClick={importFile}>Importuoti</Button>{
+          successAlertShowState? 
+          <Alert onClose={handleClose} severity="success">
+            Failas sėkmingai įkeltas!
+          </Alert>
+       :errorAlertShowState?<Alert onClose={handleClose} severity="error">
+       Įkelkite json formato failą!
+     </Alert>:null
+        }
       </Box>
     </Box>
   )
