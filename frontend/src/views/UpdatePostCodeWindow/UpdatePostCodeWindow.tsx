@@ -106,7 +106,6 @@ function UpdatePostCodeWindow() {
               Pašto indeksas sėkmingai atnaujintas!
             </Alert> : null
         }
-
       </Box>
     </Box>
   )
